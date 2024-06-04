@@ -2,18 +2,20 @@
 @import url('./1-timer.css');
 @import url('./2-snackbar.css');
 
-/* :root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
-
-  color: #242424;
-  background-color: rgba(255, 255, 255, 0.87);
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
-} */
+.main-title {
+  font-size: 48px;
+  margin: 20px;
+}
+.main-list {
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.main-link {
+  font-size: 24px;
+  font-weight: bold;
+}
+.main-link:hover {
+  color: tomato;
+}

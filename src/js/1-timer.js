@@ -17,19 +17,32 @@ import "izitoast/dist/css/iziToast.min.css";
 
 //Бібліотека очікує, що її ініціалізують на елементі input[type="text"], тому ми додали до HTML документа поле input#datetime-picker. <input type="text" id="datetime-picker" />
 
-const selectInput = document.querySelector('input#datetime-picker');
+const selectInput = document.getElementById('datetime-picker');
+const startBtn = document.querySelector("[data-start]");
 
 // Другим аргументом функції flatpickr(selector, options) можна передати необов'язковий об'єкт параметрів. Ми підготували для тебе об'єкт, який потрібен для виконання завдання. Розберися, за що відповідає кожна властивість у документації «Options» і використовуй його у своєму коді.
 
+let userSelectedDate;
+const currentTime = Date.now();
+    
 const options = {
   enableTime: true,
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    console.log(selectedDates[0]);
+    const selectedTime = selectedDates[0].getTime();
+    if (selectedTime <= currentTime) {
+      window.alert("Please choose a date in the future");
+      startBtn.setAttribute('disabled', true);
+    } else {
+      userSelectedDate = selectedTime;
+      startBtn.removeAttribute('disabled');
+    };
   },
 };
+
+flatpickr(selectInput, options);
 
 // Вибір дати
 // Метод onClose() з об'єкта параметрів викликається щоразу під час закриття елемента інтерфейсу, який створює flatpickr. Саме в ньому варто обробляти дату, обрану користувачем. Параметр selectedDates — це масив обраних дат, тому ми беремо перший елемент selectedDates[0].
@@ -39,7 +52,7 @@ const options = {
 // Кнопка «Start» повинна бути неактивною доти, доки користувач не вибрав дату в майбутньому. Зверни увагу, що при обранні валідної дати, не запуску таймера і обранні потім невалідної дати, кнопка після розблокування має знову стати неактивною.
 // Натисканням на кнопку «Start» починається зворотний відлік часу до обраної дати з моменту натискання.
 
-selectInput.addEventListener('click', flatpickr(selectInput, options));
+startBtn.addEventListener('click', () => console.log('Do not touch me!'));
 
 
 //Відлік часу
@@ -71,9 +84,9 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
 
-console.log(convertMs(2000)); // {days: 0, hours: 0, minutes: 0, seconds: 2}
+/* console.log(convertMs(2000)); // {days: 0, hours: 0, minutes: 0, seconds: 2}
 console.log(convertMs(140000)); // {days: 0, hours: 0, minutes: 2, seconds: 20}
-console.log(convertMs(24140000)); // {days: 0, hours: 6 minutes: 42, seconds: 20}
+console.log(convertMs(24140000)); // {days: 0, hours: 6 minutes: 42, seconds: 20} */
 
 // Форматування часу
 // Функція convertMs() повертає об'єкт з розрахованим часом, що залишився до кінцевої дати. Зверни увагу, що вона не форматує результат. Тобто якщо залишилося 4 хвилини або будь-якої іншої складової часу, то функція поверне 4, а не 04. В інтерфейсі таймера необхідно додавати 0, якщо в числі менше двох символів. Напиши функцію, наприклад addLeadingZero(value), яка використовує метод рядка padStart() і перед відмальовуванням інтерфейсу форматує значення.
