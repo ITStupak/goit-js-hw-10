@@ -1,0 +1,83 @@
+/* body {
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  margin: 0;
+} */
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 360px;
+  margin-left: 156px;
+}
+.delay-label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #2e2f42;
+  margin-bottom: 16px;
+}
+.delay-input {
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: #2e2f42;
+  padding: 8px 16px;
+  border: 1px solid #808080;
+  border-radius: 4px;
+  width: 328px;
+  height: 24px;
+}
+.delay-input:hover,
+.state:hover {
+  border: 1px solid #000;
+}
+.delay-input:focus {
+  outline: none;
+  border: 1px solid #4e75ff;
+}
+.state {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  border-radius: 4px;
+  border: 1px solid #808080;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: #2e2f42;
+  width: 360px;
+  padding: 14px 0 8px;
+  margin: 0 0 24px;
+}
+.state-legend {
+  margin-left: 28px;
+  padding: 0;
+}
+.state-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: 0;
+}
+.create-btn {
+  border: none;
+  border-radius: 8px;
+  width: 360px;
+  height: 40px;
+  background: #4e75ff;
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  color: #fff;
+}
+.create-btn:hover {
+  background: #6c8cff;
+}
+.radio-input {
+  margin: 0;
+  border: 1px solid #757575;
+  border-radius: 14px;
+  width: 20px;
+  height: 20px;
+}

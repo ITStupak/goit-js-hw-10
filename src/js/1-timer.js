@@ -5,14 +5,16 @@ import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 import imageUrl from '../img/icon.svg';
 
-const selectInput = document.getElementById('datetime-picker');
-const startBtn = document.querySelector('[data-start]');
-const daysField = document.querySelector('[data-days]');
-const hoursField = document.querySelector('[data-hours]');
-const minutesField = document.querySelector('[data-minutes]');
-const secondsField = document.querySelector('[data-seconds]');
+const refs = {
+  selectInput: document.getElementById('datetime-picker'),
+  startBtn: document.querySelector('[data-start]'),
+  daysField: document.querySelector('[data-days]'),
+  hoursField: document.querySelector('[data-hours]'),
+  minutesField: document.querySelector('[data-minutes]'),
+  secondsField: document.querySelector('[data-seconds]'),
+}
 
-startBtn.setAttribute('disabled', true);
+refs.startBtn.disabled = true;
 
 let userSelectedDate;
     
@@ -42,22 +44,22 @@ const options = {
         transitionIn: 'fadeInDown',
         transitionOut: 'fadeOutUp',
         iconUrl: imageUrl,
-        iconColor: '#FAFAFB',
+        iconColor: '#fafafb',
       });
       console.log('Wrong Date! \nPlease choose a date in the future!');
-      startBtn.setAttribute('disabled', true);
+      refs.startBtn.disabled = true;
     } else {
-      startBtn.removeAttribute('disabled');
+      refs.startBtn.disabled = false;
     };
   },
 };
 
-flatpickr(selectInput, options);
+flatpickr(refs.selectInput, options);
 
 let timeLeft;
-startBtn.addEventListener('click', () => {
-    startBtn.setAttribute('disabled', true);
-    selectInput.setAttribute('disabled', true);
+refs.startBtn.addEventListener('click', () => {
+    refs.startBtn.disabled = true;
+    refs.selectInput.disabled = true;
     timeLeft = setInterval(convertMs, 1000);
 });
 
@@ -82,7 +84,7 @@ function convertMs(ms) {
       transitionIn: 'bounceInLeft',
       transitionOut: 'fadeOutLeft',
     });
-    selectInput.removeAttribute('disabled');
+    refs.selectInput.disabled = false;
     return;
     };
 
@@ -105,8 +107,8 @@ function convertMs(ms) {
     return String(value).padStart(2, '0');
   };
 
-  daysField.textContent = addLeadingZero(days);
-  hoursField.textContent = addLeadingZero(hours);
-  minutesField.textContent = addLeadingZero(minutes);
-  secondsField.textContent = addLeadingZero(seconds);
+  refs.daysField.textContent = addLeadingZero(days);
+  refs.hoursField.textContent = addLeadingZero(hours);
+  refs.minutesField.textContent = addLeadingZero(minutes);
+  refs.secondsField.textContent = addLeadingZero(seconds);
 }

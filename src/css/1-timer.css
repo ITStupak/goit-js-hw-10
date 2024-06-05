@@ -1,13 +1,13 @@
-.timer-link {
+.link {
   position: absolute;
   top: 20px;
   left: 20px;
 }
-.timer-link:hover {
+.link:hover {
   color: tomato;
   text-decoration: underline;
 }
-.timer-title {
+.title {
   margin: 30px auto 50px 156px;
 }
 .accent {
