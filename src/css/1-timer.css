@@ -13,7 +13,6 @@
 .accent {
   color: tomato;
   font-weight: 700;
-  /* text-decoration: underline; */
 }
 #datetime-picker {
   border: 1px solid #808080;
