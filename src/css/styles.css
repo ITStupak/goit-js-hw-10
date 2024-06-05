@@ -3,7 +3,8 @@
 @import url('./2-snackbar.css');
 
 .main-title {
-  font-size: 48px;
+  font-size: 40px;
+  color: tomato;
   margin: 20px;
 }
 .main-list {

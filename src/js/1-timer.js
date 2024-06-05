@@ -1,29 +1,20 @@
-// Напиши скрипт таймера, який здійснює зворотний відлік до певної дати.
-
-//Елементи інтерфейсу
-// Додай в HTML файл розмітку таймера, поля вибору кінцевої дати і кнопку, при кліку на яку таймер повинен запускатися. Додай оформлення елементів інтерфейсу згідно з макетом.
-
-//Бібліотека flatpickr
-// Використовуй бібліотеку flatpickr для того, щоб дозволити користувачеві кросбраузерно вибрати кінцеву дату і час в одному елементі інтерфейсу. Для того щоб підключити CSS код бібліотеки в проєкт, необхідно додати ще один імпорт, крім того, що описаний в документації.
-
-//Бібліотека повідомлень
-// Для відображення повідомлень користувачеві, замість window.alert(), використовуй бібліотеку iziToast. Для того щоб підключити CSS код бібліотеки в проєкт, необхідно додати ще один імпорт, крім того, що описаний у документації.
-
 import flatpickr from "flatpickr";
-import "flatpickr/dist/flatpickr.min.css";
+import  "flatpickr/dist/themes/material_orange.css";
 
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
-
-//Бібліотека очікує, що її ініціалізують на елементі input[type="text"], тому ми додали до HTML документа поле input#datetime-picker. <input type="text" id="datetime-picker" />
+import imageUrl from '../img/icon.svg';
 
 const selectInput = document.getElementById('datetime-picker');
-const startBtn = document.querySelector("[data-start]");
+const startBtn = document.querySelector('[data-start]');
+const daysField = document.querySelector('[data-days]');
+const hoursField = document.querySelector('[data-hours]');
+const minutesField = document.querySelector('[data-minutes]');
+const secondsField = document.querySelector('[data-seconds]');
 
-// Другим аргументом функції flatpickr(selector, options) можна передати необов'язковий об'єкт параметрів. Ми підготували для тебе об'єкт, який потрібен для виконання завдання. Розберися, за що відповідає кожна властивість у документації «Options» і використовуй його у своєму коді.
+startBtn.setAttribute('disabled', true);
 
 let userSelectedDate;
-const currentTime = Date.now();
     
 const options = {
   enableTime: true,
@@ -31,12 +22,31 @@ const options = {
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    const selectedTime = selectedDates[0].getTime();
-    if (selectedTime <= currentTime) {
-      window.alert("Please choose a date in the future");
+    userSelectedDate = selectedDates[0];
+    const currentDate = new Date();
+    if (userSelectedDate <= currentDate) {
+      iziToast.error({
+        title: 'Error!',
+        titleColor: '#fff', 
+        message: 'Please choose a date in the future!',
+        messageSize: '16',
+        messageColor: '#fff',        
+        backgroundColor: '#ef4040',
+        imageWidth: 302,
+        position: 'topRight',
+        close: false,
+        closeOnEscape: true,
+        closeOnClick: true,
+        progressBar: true,
+        progressBarColor: '#b51b1b',
+        transitionIn: 'fadeInDown',
+        transitionOut: 'fadeOutUp',
+        iconUrl: imageUrl,
+        iconColor: '#FAFAFB',
+      });
+      console.log('Wrong Date! \nPlease choose a date in the future!');
       startBtn.setAttribute('disabled', true);
     } else {
-      userSelectedDate = selectedTime;
       startBtn.removeAttribute('disabled');
     };
   },
@@ -44,28 +54,38 @@ const options = {
 
 flatpickr(selectInput, options);
 
-// Вибір дати
-// Метод onClose() з об'єкта параметрів викликається щоразу під час закриття елемента інтерфейсу, який створює flatpickr. Саме в ньому варто обробляти дату, обрану користувачем. Параметр selectedDates — це масив обраних дат, тому ми беремо перший елемент selectedDates[0].
-// Тобі ця обрана дата буде потрібна в коді і поза межами цього методу onClose(). Тому оголоси поза межами методу let змінну, наприклад, userSelectedDate, і після валідації її в методі onClose() на минуле/майбутнє запиши обрану дату в цю let змінну.
-// Якщо користувач вибрав дату в минулому, покажи window.alert() з текстом "Please choose a date in the future" і зроби кнопку «Start» не активною.
-// Якщо користувач вибрав валідну дату (в майбутньому), кнопка «Start» стає активною.
-// Кнопка «Start» повинна бути неактивною доти, доки користувач не вибрав дату в майбутньому. Зверни увагу, що при обранні валідної дати, не запуску таймера і обранні потім невалідної дати, кнопка після розблокування має знову стати неактивною.
-// Натисканням на кнопку «Start» починається зворотний відлік часу до обраної дати з моменту натискання.
-
-startBtn.addEventListener('click', () => console.log('Do not touch me!'));
-
-
-//Відлік часу
-// Натисканням на кнопку «Start» скрипт повинен обчислювати раз на секунду, скільки часу залишилось до вказаної дати, і оновлювати інтерфейс таймера, показуючи чотири цифри: дні, години, хвилини і секунди у форматі xx:xx:xx:xx.
-
-// Кількість днів може складатися з більше, ніж двох цифр.
-// Таймер повинен зупинятися, коли дійшов до кінцевої дати, тобто залишок часу дорівнює нулю 00:00:00:00.
-
-//Після запуску таймера натисканням кнопки Старт кнопка Старт і інпут стають неактивним, щоб користувач не міг обрати нову дату, поки йде відлік часу. Після зупинки таймера інпут стає активним, щоб користувач міг обрати наступну дату. Кнопка залишається не активною.
-
-// Для підрахунку значень використовуй готову функцію convertMs, де ms — різниця між кінцевою і поточною датою в мілісекундах.
+let timeLeft;
+startBtn.addEventListener('click', () => {
+    startBtn.setAttribute('disabled', true);
+    selectInput.setAttribute('disabled', true);
+    timeLeft = setInterval(convertMs, 1000);
+});
 
 function convertMs(ms) {
+  const endTime = userSelectedDate.getTime();
+  const currentTime = Date.now();
+  ms = endTime - currentTime;
+  if (ms < 0) {
+    clearInterval(timeLeft);
+    console.log('Time Is Up!');
+    iziToast.info({
+      title: 'Hey!',
+      titleColor: '#fff',
+      message: 'Time Is Up!',
+      messageSize: '16',
+      messageColor: '#fff',
+      backgroundColor: 'green',
+      position: 'center',
+      close: false,
+      closeOnEscape: true,
+      closeOnClick: true,
+      transitionIn: 'bounceInLeft',
+      transitionOut: 'fadeOutLeft',
+    });
+    selectInput.removeAttribute('disabled');
+    return;
+    };
+
   // Number of milliseconds per unit of time
   const second = 1000;
   const minute = second * 60;
@@ -81,15 +101,12 @@ function convertMs(ms) {
   // Remaining seconds
   const seconds = Math.floor((((ms % day) % hour) % minute) / second);
 
-  return { days, hours, minutes, seconds };
+  function addLeadingZero(value) {
+    return String(value).padStart(2, '0');
+  };
+
+  daysField.textContent = addLeadingZero(days);
+  hoursField.textContent = addLeadingZero(hours);
+  minutesField.textContent = addLeadingZero(minutes);
+  secondsField.textContent = addLeadingZero(seconds);
 }
-
-/* console.log(convertMs(2000)); // {days: 0, hours: 0, minutes: 0, seconds: 2}
-console.log(convertMs(140000)); // {days: 0, hours: 0, minutes: 2, seconds: 20}
-console.log(convertMs(24140000)); // {days: 0, hours: 6 minutes: 42, seconds: 20} */
-
-// Форматування часу
-// Функція convertMs() повертає об'єкт з розрахованим часом, що залишився до кінцевої дати. Зверни увагу, що вона не форматує результат. Тобто якщо залишилося 4 хвилини або будь-якої іншої складової часу, то функція поверне 4, а не 04. В інтерфейсі таймера необхідно додавати 0, якщо в числі менше двох символів. Напиши функцію, наприклад addLeadingZero(value), яка використовує метод рядка padStart() і перед відмальовуванням інтерфейсу форматує значення.
-
-//Бібліотека повідомлень
-// Для відображення повідомлень користувачеві, замість window.alert(), використовуй бібліотеку iziToast. Для того щоб підключити CSS код бібліотеки в проєкт, необхідно додати ще один імпорт, крім того, що описаний у документації.
