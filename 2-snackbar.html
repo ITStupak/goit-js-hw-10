@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Snackbar</title>
+    <title>Promise generator</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,8 +12,11 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
-    <script type="module" crossorigin src="/goit-js-hw-10/assets/modulepreload-polyfill-3cfb730f.js"></script>
-    <link rel="stylesheet" href="/goit-js-hw-10/assets/styles-eedb226d.css">
+    <script type="module" crossorigin src="/goit-js-hw-10/commonHelpers2.js"></script>
+    <link rel="modulepreload" crossorigin href="/goit-js-hw-10/assets/modulepreload-polyfill-3cfb730f.js">
+    <link rel="modulepreload" crossorigin href="/goit-js-hw-10/assets/vendor-893c0857.js">
+    <link rel="stylesheet" href="/goit-js-hw-10/assets/vendor-c191460b.css">
+    <link rel="stylesheet" href="/goit-js-hw-10/assets/styles-3c210a4d.css">
   </head>
   <body>
     <section>
@@ -33,7 +36,7 @@
           <legend class="state-legend">State</legend>
           <label class="state-label">
             <input
-              class="radio-input"
+              class="fulfilled-input"
               type="radio"
               name="state"
               value="fulfilled"
@@ -43,7 +46,7 @@
           </label>
           <label class="state-label">
             <input
-              class="radio-input"
+              class="rejected-input"
               type="radio"
               name="state"
               value="rejected"
