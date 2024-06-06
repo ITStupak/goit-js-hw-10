@@ -74,7 +74,8 @@
 .create-btn:hover {
   background: #6c8cff;
 }
-.radio-input {
+.fulfilled-input,
+.rejected-input {
   margin: 0;
   border: 1px solid #757575;
   border-radius: 14px;
