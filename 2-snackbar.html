@@ -13,7 +13,7 @@
       rel="stylesheet"
     />
     <script type="module" crossorigin src="/goit-js-hw-10/commonHelpers2.js"></script>
-    <link rel="modulepreload" crossorigin href="/goit-js-hw-10/assets/modulepreload-polyfill-3cfb730f.js">
+    <link rel="modulepreload" crossorigin href="/goit-js-hw-10/assets/icon-error-e85ff60c.js">
     <link rel="modulepreload" crossorigin href="/goit-js-hw-10/assets/vendor-893c0857.js">
     <link rel="stylesheet" href="/goit-js-hw-10/assets/vendor-c191460b.css">
     <link rel="stylesheet" href="/goit-js-hw-10/assets/styles-3c210a4d.css">
@@ -29,7 +29,15 @@
       <form class="form">
         <label class="delay-label">
           Delay (ms)
-          <input class="delay-input" type="number" name="delay" required />
+          <input
+            class="delay-input"
+            type="number"
+            name="delay"
+            min="0"
+            max="10000"
+            step="1000"
+            required
+          />
         </label>
 
         <fieldset class="state">
