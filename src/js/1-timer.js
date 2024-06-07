@@ -3,7 +3,7 @@ import  "flatpickr/dist/themes/material_orange.css";
 
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
-import imageUrl from '../img/icon.svg';
+import imageUrl from '../img/icon-error.svg';
 
 const refs = {
   selectInput: document.getElementById('datetime-picker'),
@@ -36,7 +36,8 @@ const options = {
         backgroundColor: '#ef4040',
         imageWidth: 302,
         position: 'topRight',
-        close: false,
+        theme: 'dark',
+        close: true,
         closeOnEscape: true,
         closeOnClick: true,
         progressBar: true,
@@ -78,6 +79,7 @@ function convertMs(ms) {
       messageColor: '#fff',
       backgroundColor: 'green',
       position: 'center',
+      theme: 'dark',
       close: false,
       closeOnEscape: true,
       closeOnClick: true,
