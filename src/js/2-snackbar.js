@@ -2,6 +2,7 @@ import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 import imageUrlError from '../img/icon-error.svg';
 import imageUrlSuccess from '../img/icon-success.svg';
+import imageUrlAttention from '../img/icon-attention.svg';
 
 const form = document.querySelector('.form');
 
@@ -14,12 +15,19 @@ function createPromise(event) {
     const state = event.target.elements.state.value;
 
     if (!delay || !state) {
-        // iziToast.warning({
-        //     title: 'Caution',
-        //     message: 'You forgot to select data!',
-        // });
-    console.log('⚠️ Caution: Field delay or state is empty!');
-    return;
+        iziToast.warning({
+            title: 'Attention!',
+            titleSize: '16',
+            titleColor: 'red',
+            message: 'You need to set Delay or State!',
+            messageSize: '16',
+            messageColor: 'red',
+            backgroundColor: 'yellow',
+            position: 'topRight',
+            iconUrl: imageUrlAttention,
+        });
+        console.log('⚠️ Attention: Field delay or state is empty!');
+        return;
     }
 
     new Promise(function (resolve, reject) {
@@ -27,9 +35,10 @@ function createPromise(event) {
             state === 'fulfilled' ? resolve(delay) : reject(delay);
         }, delay);
     })        
-        .then((result) => {
-            iziToast.success({
+    .then((result) => {
+        iziToast.success({
                 title: 'OK',
+                titleSize: '16',
                 titleColor: '#fff', 
                 message: `Fulfilled promise in ${result}ms`,
                 messageSize: '16',
@@ -41,16 +50,17 @@ function createPromise(event) {
                 closeOnEscape: true,
                 closeOnClick: true,
                 progressBar: true,
-                progressBarColor: '#b5ea7c',
+                progressBarColor: '#326101',
                 iconUrl: imageUrlSuccess,
                 iconColor: '#fff',
-            });
+        });
         console.log(`✅ Fulfilled promise in ${result}ms`);
     })
         
-        .catch((error) => {
-            iziToast.error({
+    .catch((error) => {
+        iziToast.error({
                 title: 'Error!',
+                titleSize: '16',
                 titleColor: '#fff', 
                 message: `Rejected promise in ${error}ms`,
                 messageSize: '16',
@@ -65,7 +75,7 @@ function createPromise(event) {
                 progressBarColor: '#ffbebe',
                 iconUrl: imageUrlError,
                 iconColor: '#fff',
-            });
+        });
         console.log(`❌ Rejected promise in ${error}ms`);
     });
 };
